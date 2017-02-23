@@ -1,10 +1,13 @@
 name 'chocolatey_server'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
-license 'all_rights'
+maintainer 'Galen Emery'
+maintainer_email 'galen@galenemery.com'
+license 'apache2'
 description 'Installs/Configures chocolatey_server'
 long_description 'Installs/Configures chocolatey_server'
 version '0.1.0'
+depends 'iis'
+depends 'chocolatey'
+depends 'windows', '~> 2.0.2'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when
