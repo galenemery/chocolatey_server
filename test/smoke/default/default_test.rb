@@ -5,14 +5,22 @@
 # The Inspec reference, with examples and extensive documentation, can be
 # found at http://inspec.io/docs/reference/resources/
 
-unless os.windows?
-  describe user('root') do
-    it { should exist }
-    skip 'This is an example test, replace with your own test.'
-  end
+describe chocolatey_package('chocolatey.server') do
+  it { should be_installed }
+end
+
+describe windows_feature('Web-WebServer') do
+  it { should be_installed }
+end
+
+describe windows_feature('NET-Framework-45-ASPNET') do
+  it { should be_installed }
 end
 
 describe port(80) do
-  it { should_not be_listening }
-  skip 'This is an example test, replace with your own test.'
+  it { should be_listening }
+end
+
+describe powershell('(Invoke-WebRequest -Uri localhost -UseBasicParsing).Content') do
+  its('stdout') { should match /Chocolatey/ }
 end

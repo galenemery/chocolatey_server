@@ -1,19 +1,34 @@
 ---
 driver:
   name: vagrant
+  boot_timeout: 1800
+  gui: false
 
 provisioner:
   name: chef_zero
-  # You may wish to disable always updating cookbooks in CI or other testing environments.
-  # For example:
-  #   always_update_cookbooks: <%= !ENV['CI'] %>
-  always_update_cookbooks: true
+  max_retries: 3 # tweak in conjunction with wait_for_retry
+  wait_for_retry: 90 # tweak based on machine shutdown speed
+  retry_on_exit_code: [35, 213, 259] # retry for array of exit codes
 
 verifier:
   name: inspec
 
+transport:
+  name: winrm
+  elevated: true
 platforms:
   - name: windows-2012r2
+    driver:
+      customize:
+        memory: 4096
+  - name: windows-2016
+    driver:
+      customize:
+        memory: 4096
+  - name: windows-2019
+    driver:
+      customize:
+        memory: 4096
 
 suites:
   - name: default
